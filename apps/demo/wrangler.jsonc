@@ -1,0 +1,11 @@
+{
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "vue-scrollobserver-demo",
+    // Original SIN Architecture
+    "account_id": "5c2ac06ed7c88ba0dae31a8ca2454dec",
+    "compatibility_date": "2026-10-08",
+    // The demo is a static Vite build, so the Worker has no script and only serves assets.
+    "assets": {
+        "directory": "./dist"
+    }
+}
