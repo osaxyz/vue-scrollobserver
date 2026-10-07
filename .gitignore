@@ -8,3 +8,4 @@ opencode.json
 .DS_Store
 .turbo
 .wrangler
+.env
