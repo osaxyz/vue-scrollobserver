@@ -26,5 +26,5 @@ jobs:
       - run: pnpm lint
       - run: pnpm exec turbo run typecheck test build
       # prepack でビルドし、README と LICENSE を写してから tarball を作る。
-      - run: pnpm --filter vue-scrolltrigger pack --pack-destination "$RUNNER_TEMP/package"
+      - run: pnpm --filter vue-scrollobserver pack --pack-destination "$RUNNER_TEMP/package"
       - run: for file in "$RUNNER_TEMP"/package/*.tgz; do echo "$file"; tar -tzf "$file"; done
