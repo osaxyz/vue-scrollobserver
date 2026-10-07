@@ -67,7 +67,10 @@ Turborepo builds the library and the demo first. Wrangler needs to be logged in 
 
 The demo is served from Cloudflare Workers Static Assets on workers.dev, on the Original SIN Architecture account. `apps/demo/wrangler.jsonc` has no Worker script and serves the Vite build in `dist`.
 
+The account ID is not committed. Copy `apps/demo/.env.example` to `apps/demo/.env` and set `CLOUDFLARE_ACCOUNT_ID`. Wrangler reads it from there, and `.env` is ignored by Git.
+
 ```sh
+cp apps/demo/.env.example apps/demo/.env
 pnpm exec turbo run deploy
 ```
 
@@ -187,7 +190,10 @@ Turborepo がライブラリとデモを先にビルドします。Wrangler は�
 
 デモは Cloudflare の Original SIN Architecture のアカウントで、Workers Static Assets から workers.dev に配信しています。`apps/demo/wrangler.jsonc` は Worker のスクリプトを持たず、Vite がビルドした `dist` を配信します。
 
+アカウント ID はリポジトリに入れていません。`apps/demo/.env.example` を `apps/demo/.env` に写し、`CLOUDFLARE_ACCOUNT_ID` を設定します。Wrangler はそこから読み込み、`.env` は Git の対象外です。
+
 ```sh
+cp apps/demo/.env.example apps/demo/.env
 pnpm exec turbo run deploy
 ```
 
