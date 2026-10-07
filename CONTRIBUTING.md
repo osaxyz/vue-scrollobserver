@@ -41,6 +41,7 @@ This is a Turborepo monorepo managed with pnpm.
 | `pnpm build` | Builds the library and the demo |
 | `pnpm dev` | Watches the library and serves the demo |
 | `pnpm exec turbo run deploy` | Builds and deploys the demo to Cloudflare Workers |
+| `pnpm exec turbo run deploy` | Builds and deploys the demo to Cloudflare Workers |
 
 npm shows `apps/vue-scrollobserver/README.md`, not the root README. When you change the README, update both. npm does not support GitHub alerts or relative paths, so the package README writes alerts as `> **Important:** …` and uses absolute URLs for images.
 
@@ -51,6 +52,20 @@ npm shows `apps/vue-scrollobserver/README.md`, not the root README. When you cha
 <br>
 
 The demo is served from Cloudflare Workers Static Assets at <https://vue-scrollobserver-demo.original-sin-architecture.workers.dev>, on the Original SIN Architecture account. `apps/demo/wrangler.jsonc` has no Worker script and serves the Vite build in `dist`.
+
+```sh
+pnpm exec turbo run deploy
+```
+
+Turborepo builds the library and the demo first. Wrangler needs to be logged in with access to the account. `pnpm deploy` is a built-in pnpm command, so run the task through Turborepo.
+
+</details>
+
+<details>
+<summary>Deploying the demo</summary>
+<br>
+
+The demo is served from Cloudflare Workers Static Assets on workers.dev, on the Original SIN Architecture account. `apps/demo/wrangler.jsonc` has no Worker script and serves the Vite build in `dist`.
 
 ```sh
 pnpm exec turbo run deploy
@@ -146,6 +161,7 @@ pnpm で管理する Turborepo のモノレポです。
 | `pnpm build` | ライブラリとデモをビルドします |
 | `pnpm dev` | ライブラリを監視しながら、デモを配信します |
 | `pnpm exec turbo run deploy` | デモをビルドして Cloudflare Workers にデプロイします |
+| `pnpm exec turbo run deploy` | デモをビルドして Cloudflare Workers にデプロイします |
 
 npm に表示されるのはルートの README ではなく `apps/vue-scrollobserver/README.md` です。README を変えたら両方を更新します。npm は GitHub のアラートと相対パスに対応していないので、パッケージの README ではアラートを `> **重要**：…` の形で書き、画像は絶対 URL にします。
 
@@ -156,6 +172,20 @@ npm に表示されるのはルートの README ではなく `apps/vue-scrollobs
 <br>
 
 デモは Cloudflare の Original SIN Architecture のアカウントで、Workers Static Assets から <https://vue-scrollobserver-demo.original-sin-architecture.workers.dev> に配信しています。`apps/demo/wrangler.jsonc` は Worker のスクリプトを持たず、Vite がビルドした `dist` を配信します。
+
+```sh
+pnpm exec turbo run deploy
+```
+
+Turborepo がライブラリとデモを先にビルドします。Wrangler は、このアカウントにアクセスできる状態でログインしている必要があります。`pnpm deploy` は pnpm の組み込みのコマンドなので、タスクは Turborepo から実行します。
+
+</details>
+
+<details>
+<summary>デモのデプロイ</summary>
+<br>
+
+デモは Cloudflare の Original SIN Architecture のアカウントで、Workers Static Assets から workers.dev に配信しています。`apps/demo/wrangler.jsonc` は Worker のスクリプトを持たず、Vite がビルドした `dist` を配信します。
 
 ```sh
 pnpm exec turbo run deploy
