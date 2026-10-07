@@ -1,0 +1,7 @@
+packages:
+  - apps/*
+  - packages/*
+
+# esbuild ships its binary as an optional dependency, so its install script is not needed.
+allowBuilds:
+  esbuild: false
