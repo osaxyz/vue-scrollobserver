@@ -89,7 +89,7 @@ NG  feat(vue-scrollobserver): ディレクティブ
 <summary>Releases</summary>
 <br>
 
-Releases are published by `.github/workflows/publish.yml` with npm Trusted Publishing and provenance. Nobody publishes from a local machine.
+Releases are staged by `.github/workflows/publish.yml` with npm Trusted Publishing and provenance, and a maintainer approves them with two-factor authentication. Nobody publishes from a local machine.
 
 1. Update `version` in `apps/vue-scrollobserver/package.json` and `VERSION`.
 2. Merge the change into `main`.
@@ -97,6 +97,13 @@ Releases are published by `.github/workflows/publish.yml` with npm Trusted Publi
 
 ```sh
 gh workflow run publish.yml --ref main
+```
+
+4. Approve the staged version with two-factor authentication, on the package page on npmjs.com or from the command line. Users cannot install it until it is approved.
+
+```sh
+npm stage list vue-scrollobserver
+npm stage approve <stage-id>
 ```
 
 The workflow refuses to run from any branch other than `main`, and only the `npm` environment can publish.
@@ -187,7 +194,7 @@ NG  feat(vue-scrollobserver): ディレクティブ
 <summary>リリース</summary>
 <br>
 
-リリースは `.github/workflows/publish.yml` が npm の Trusted Publishing と provenance 付きで公開します。手元のマシンからは公開しません。
+リリースは `.github/workflows/publish.yml` が npm の Trusted Publishing と provenance 付きで段階公開し、メンテナーが 2 要素認証を使って承認します。手元のマシンからは公開しません。
 
 1. `apps/vue-scrollobserver/package.json` と `VERSION` の `version` を更新します。
 2. 変更を `main` にマージします。
@@ -195,6 +202,13 @@ NG  feat(vue-scrollobserver): ディレクティブ
 
 ```sh
 gh workflow run publish.yml --ref main
+```
+
+4. 段階公開された版を、npmjs.com のパッケージのページかコマンドラインで、2 要素認証を使って承認します。承認するまで利用者はインストールできません。
+
+```sh
+npm stage list vue-scrollobserver
+npm stage approve <stage-id>
 ```
 
 ワークフローは `main` 以外のブランチからは動かず、公開できるのは `npm` environment だけです。

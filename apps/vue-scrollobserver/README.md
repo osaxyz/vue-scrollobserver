@@ -82,7 +82,7 @@ Nothing is observed on the server. `isIntersecting` from `useIntersect()` starts
 <summary>Published with npm provenance</summary>
 <br>
 
-Releases are built and published from GitHub Actions with npm Trusted Publishing, so no npm token exists anywhere. Each version carries a provenance statement that links it to the commit and workflow run it was built from. The build job and the job that holds the publishing credential are separate, so a compromised dependency cannot publish a fake package.
+Releases are built and published from GitHub Actions with npm Trusted Publishing, so no npm token exists anywhere. Each version carries a provenance statement that links it to the commit and workflow run it was built from. The build job and the job that holds the publishing credential are separate, so a compromised dependency cannot publish a fake package. The workflow only stages each version, and it reaches users after a maintainer approves it with two-factor authentication.
 
 </details>
 
@@ -241,7 +241,7 @@ const stop = intersect(el, (entry) => console.log(entry), { once: true })
 <summary>npm の provenance 付きで公開しています</summary>
 <br>
 
-リリースは GitHub Actions から npm の Trusted Publishing でビルドして公開するので、npm のトークンはどこにも存在しません。各バージョンには、どのコミットとワークフローの実行からビルドしたかを示す provenance が付きます。ビルドするジョブと公開の証明書を持つジョブを分けているので、依存のどれかが乗っ取られても偽のパッケージは公開できません。
+リリースは GitHub Actions から npm の Trusted Publishing でビルドして公開するので、npm のトークンはどこにも存在しません。各バージョンには、どのコミットとワークフローの実行からビルドしたかを示す provenance が付きます。ビルドするジョブと公開の証明書を持つジョブを分けているので、依存のどれかが乗っ取られても偽のパッケージは公開できません。ワークフローは各バージョンを段階公開するだけで、メンテナーが 2 要素認証を使って承認してから利用者に届きます。
 
 </details>
 
