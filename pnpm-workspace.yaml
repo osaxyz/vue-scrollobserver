@@ -2,6 +2,7 @@ packages:
   - apps/*
   - packages/*
 
-# esbuild ships its binary as an optional dependency, so its install script is not needed.
+# esbuild and workerd ship their binaries as optional dependencies, so their install scripts are not needed.
 allowBuilds:
   esbuild: false
+  workerd: false
