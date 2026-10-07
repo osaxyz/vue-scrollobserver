@@ -1,6 +1,7 @@
 # vue-scrollobserver を npm に公開する。
 # npm の Trusted Publishing（OIDC）で認証するので、npm のトークンを GitHub に置かない。
 # どのコミットからビルドしたかを示す provenance を付ける。
+# 公開は段階公開にし、メンテナーが npm で 2 要素認証を使って承認するまで利用者に届かないようにする。
 # 依存のインストールとビルドは、公開の証明書を取り出せないジョブで行い、tarball だけを公開のジョブに渡す。
 # 依存のどれかが乗っ取られても、公開の証明書を使って偽のパッケージを出せないようにする。
 #   gh workflow run publish.yml --ref main
@@ -60,6 +61,7 @@ jobs:
           registry-url: https://registry.npmjs.org
       # Trusted Publishing には npm 11.5.1 以上が要る。公開に使う CLI なので版を固定する。
       - run: npm install -g npm@11.19.0
-      - name: npm publish
+      # 承認を待つ版として npm に置く。npm の Trusted Publishing の設定では npm publish を許さない。
+      - name: npm stage publish
         working-directory: package
-        run: npm publish ./*.tgz --access public --provenance
+        run: npm stage publish ./*.tgz --access public --provenance
