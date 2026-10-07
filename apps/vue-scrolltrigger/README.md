@@ -9,13 +9,7 @@ Run code when an element scrolls into view in Vue 3, with a directive, a composa
 
 ## English
 
-<p align="center">
-  <a href="https://github.com/osaxyz/vue-scrolltrigger"><img src="https://img.shields.io/github/stars/osaxyz/vue-scrolltrigger?style=social" alt="Star vue-scrolltrigger on GitHub"></a><br>
-  <sub>If vue-scrolltrigger helps you, a star keeps us going.</sub>
-</p>
-
-> [!IMPORTANT]
-> vue-scrolltrigger requires Vue 3.3 or later. It is the successor of `@osaxyz/intersect`, rewritten in TypeScript, and the directive is now `v-scroll-trigger` instead of `v-intersect`.
+> **Important:** vue-scrolltrigger requires Vue 3.3 or later. It is the successor of `@osaxyz/intersect`, rewritten in TypeScript, and the directive is now `v-scroll-trigger` instead of `v-intersect`.
 
 ### Quick start
 
@@ -52,8 +46,7 @@ const onEnter = (entry: IntersectionObserverEntry) => {
 
 4. Scroll the page. The handler runs when the element enters the viewport.
 
-> [!TIP]
-> Pass `rootMargin: "0px 0px -20% 0px"` to run the handler once the element is 20% of the screen above the bottom edge, instead of as soon as it appears.
+> **Tip:** Pass `rootMargin: "0px 0px -20% 0px"` to run the handler once the element is 20% of the screen above the bottom edge, instead of as soon as it appears.
 
 To track whether an element is in view, use the composable. Outside components, use `scrollTrigger()`.
 
@@ -177,13 +170,7 @@ The handler still receives `(entry, el)`, and the defaults are the same. To keep
 
 ## 日本語
 
-<p align="center">
-  <a href="https://github.com/osaxyz/vue-scrolltrigger"><img src="https://img.shields.io/github/stars/osaxyz/vue-scrolltrigger?style=social" alt="Star vue-scrolltrigger on GitHub"></a><br>
-  <sub>vue-scrolltrigger が役に立ったら、スターを付けてもらえると励みになります。</sub>
-</p>
-
-> [!IMPORTANT]
-> vue-scrolltrigger には Vue 3.3 以上が必要です。`@osaxyz/intersect` の後継として TypeScript で書き直したもので、ディレクティブは `v-intersect` から `v-scroll-trigger` に変わりました。
+> **重要**：vue-scrolltrigger には Vue 3.3 以上が必要です。`@osaxyz/intersect` の後継として TypeScript で書き直したもので、ディレクティブは `v-intersect` から `v-scroll-trigger` に変わりました。
 
 ### クイックスタート
 
@@ -220,8 +207,7 @@ const onEnter = (entry: IntersectionObserverEntry) => {
 
 4. ページをスクロールします。要素が画面に入るとハンドラが実行されます。
 
-> [!TIP]
-> `rootMargin: "0px 0px -20% 0px"` を渡すと、要素が見えた瞬間ではなく、画面の下端から 20% 上まで来たときに実行します。
+> **ヒント**：`rootMargin: "0px 0px -20% 0px"` を渡すと、要素が見えた瞬間ではなく、画面の下端から 20% 上まで来たときに実行します。
 
 要素が画面にあるかを追うときは composable を使います。コンポーネントの外では `scrollTrigger()` を使います。
 

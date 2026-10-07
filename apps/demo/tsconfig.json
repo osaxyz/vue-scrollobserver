@@ -1,0 +1,8 @@
+{
+    "extends": "@osaxyz/tsconfig/base.json",
+    "compilerOptions": {
+        "useDefineForClassFields": true,
+        "jsx": "preserve"
+    },
+    "include": ["src/**/*.ts", "src/**/*.vue", "vite.config.ts"]
+}

@@ -1,0 +1,74 @@
+{
+    "name": "vue-scrolltrigger",
+    "version": "1.0.0",
+    "description": "Run code when an element scrolls into view in Vue 3, with a directive, a composable, or a plain function built on IntersectionObserver",
+    "author": "Arata Ouchi",
+    "license": "MIT",
+    "type": "module",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.js"
+            },
+            "require": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/index.cjs"
+            }
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+        "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+        "test": "vitest run",
+        "typecheck": "tsc --noEmit",
+        "prepack": "pnpm run build"
+    },
+    "keywords": [
+        "vue",
+        "vue3",
+        "scroll",
+        "scroll trigger",
+        "scrolltrigger",
+        "intersection observer",
+        "intersectionobserver",
+        "in view",
+        "viewport",
+        "lazy load",
+        "reveal",
+        "animation",
+        "composable",
+        "directive"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/osaxyz/vue-scrolltrigger.git",
+        "directory": "apps/vue-scrolltrigger"
+    },
+    "bugs": {
+        "url": "https://github.com/osaxyz/vue-scrolltrigger/issues"
+    },
+    "homepage": "https://github.com/osaxyz/vue-scrolltrigger#readme",
+    "peerDependencies": {
+        "vue": "^3.3.0"
+    },
+    "devDependencies": {
+        "@osaxyz/tsconfig": "workspace:*",
+        "@types/node": "^22.0.0",
+        "@vitejs/plugin-vue": "^5.2.0",
+        "@vue/test-utils": "^2.4.6",
+        "happy-dom": "^16.0.0",
+        "tsup": "^8.0.0",
+        "typescript": "^5.7.0",
+        "vite": "^6.0.0",
+        "vitest": "^3.0.0",
+        "vue": "^3.5.0"
+    },
+    "sideEffects": false
+}

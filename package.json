@@ -1,14 +1,25 @@
 {
-    "name": "@osaxyz/intersect",
-    "version": "1.2.0",
-    "description": "Intersection Observer API を、Vue.jsで簡単に使用できるようにするためのnpmパッケージです。",
-    "private": false,
-    "main": "intersect.js",
-    "author": "Original SIN Architecture",
+    "name": "vue-scrolltrigger-monorepo",
+    "scripts": {
+        "build": "turbo run build",
+        "dev": "turbo run dev",
+        "test": "turbo run test",
+        "lint": "biome check && turbo run lint",
+        "typecheck": "turbo run typecheck",
+        "format": "biome check --write"
+    },
     "license": "MIT",
-    "homepage": "https://osa.xyz",
-    "publishConfig": {
-        "access": "public"
+    "devEngines": {
+        "packageManager": {
+            "name": "pnpm",
+            "version": "^11.0.9",
+            "onFail": "download"
+        }
+    },
+    "type": "module",
+    "private": true,
+    "devDependencies": {
+        "@biomejs/biome": "^2.5.14",
+        "turbo": "^2.11.4"
     }
 }
-

@@ -1,0 +1,30 @@
+# Lint、型チェック、テスト、ビルドを確かめ、npm に公開する中身を表示する。
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 11
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 24
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm exec turbo run typecheck test build
+      # prepack でビルドし、README と LICENSE を写してから tarball を作る。
+      - run: pnpm --filter vue-scrolltrigger pack --pack-destination "$RUNNER_TEMP/package"
+      - run: for file in "$RUNNER_TEMP"/package/*.tgz; do echo "$file"; tar -tzf "$file"; done

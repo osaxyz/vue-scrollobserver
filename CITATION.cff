@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use vue-scrolltrigger in your work, please cite it as below."
+type: software
+title: vue-scrolltrigger
+abstract: >-
+  Run code when an element scrolls into view in Vue 3, with a directive, a
+  composable, or a plain function built on IntersectionObserver.
+authors:
+  - family-names: Ouchi
+    given-names: Arata
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/osaxyz/vue-scrolltrigger"
+keywords:
+  - vue
+  - scroll
+  - intersection-observer
+  - directive
