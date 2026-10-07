@@ -1,20 +1,20 @@
 import { type DirectiveBinding, type ObjectDirective, toValue } from "vue"
-import { scrollTrigger } from "./core"
+import { intersect } from "./core"
 import type {
-    ScrollTriggerDirectiveValue,
-    ScrollTriggerHandler,
-    ScrollTriggerOptions,
+    IntersectDirectiveValue,
+    IntersectHandler,
+    IntersectOptions,
 } from "./types"
 
-export type ScrollTriggerDirective = ObjectDirective<
+export type IntersectDirective = ObjectDirective<
     Element,
-    ScrollTriggerDirectiveValue,
+    IntersectDirectiveValue,
     "once"
 >
 
 type Resolved = {
-    handler: ScrollTriggerHandler | undefined
-    options: ScrollTriggerOptions
+    handler: IntersectHandler | undefined
+    options: IntersectOptions
 }
 
 type Binding = Resolved & {
@@ -22,10 +22,10 @@ type Binding = Resolved & {
 }
 
 const resolve = (
-    defaults: ScrollTriggerOptions,
-    { arg, modifiers, value }: DirectiveBinding<ScrollTriggerDirectiveValue>,
+    defaults: IntersectOptions,
+    { arg, modifiers, value }: DirectiveBinding<IntersectDirectiveValue>,
 ): Resolved => {
-    const options: ScrollTriggerOptions = { ...defaults }
+    const options: IntersectOptions = { ...defaults }
     if (arg) {
         options.root = arg
     }
@@ -44,25 +44,25 @@ const resolve = (
 }
 
 const sameThreshold = (
-    a: ScrollTriggerOptions["threshold"],
-    b: ScrollTriggerOptions["threshold"],
+    a: IntersectOptions["threshold"],
+    b: IntersectOptions["threshold"],
 ) => String(a) === String(b)
 
 // Options that IntersectionObserver reads only when it is created.
-const needsRestart = (a: ScrollTriggerOptions, b: ScrollTriggerOptions) =>
+const needsRestart = (a: IntersectOptions, b: IntersectOptions) =>
     a.root !== b.root ||
     a.rootMargin !== b.rootMargin ||
     a.once !== b.once ||
     !sameThreshold(a.threshold, b.threshold)
 
 /**
- * Build a `v-scroll-trigger` directive that falls back to the given defaults.
- * `createScrollTrigger()` uses this to register a directive tied to its
+ * Build a `v-intersect` directive that falls back to the given defaults.
+ * `createIntersect()` uses this to register a directive tied to its
  * options.
  */
-export const createScrollTriggerDirective = (
-    defaults: ScrollTriggerOptions = {},
-): ScrollTriggerDirective => {
+export const createIntersectDirective = (
+    defaults: IntersectOptions = {},
+): IntersectDirective => {
     const bindings = new WeakMap<Element, Binding>()
 
     const start = (el: Element, resolved: Resolved) => {
@@ -73,7 +73,7 @@ export const createScrollTriggerDirective = (
         if (binding.handler) {
             // Read the handler from the binding so updates apply without
             // recreating the observer.
-            binding.stop = scrollTrigger(
+            binding.stop = intersect(
                 el,
                 (entry, target) => binding.handler?.(entry, target),
                 {
@@ -122,10 +122,9 @@ export const createScrollTriggerDirective = (
  *
  * @example
  * ```vue
- * <section v-scroll-trigger="onEnter">…</section>
- * <section v-scroll-trigger.once="onEnter">…</section>
- * <section v-scroll-trigger="{ handler: onEnter, rootMargin: '0px 0px -20% 0px' }">…</section>
+ * <section v-intersect="onEnter">…</section>
+ * <section v-intersect.once="onEnter">…</section>
+ * <section v-intersect="{ handler: onEnter, rootMargin: '0px 0px -20% 0px' }">…</section>
  * ```
  */
-export const vScrollTrigger: ScrollTriggerDirective =
-    createScrollTriggerDirective()
+export const vIntersect: IntersectDirective = createIntersectDirective()

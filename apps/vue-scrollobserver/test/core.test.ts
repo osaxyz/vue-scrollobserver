@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import { ref } from "vue"
-import { isScrollTriggerSupported, scrollTrigger } from "../src"
+import { intersect, isIntersectSupported } from "../src"
 import {
     emitIntersection,
     observersOf,
@@ -20,10 +20,10 @@ afterEach(() => {
     document.body.innerHTML = ""
 })
 
-describe("scrollTrigger", () => {
+describe("intersect", () => {
     it("runs the handler each time the element enters", () => {
         const handler = vi.fn()
-        scrollTrigger(el, handler)
+        intersect(el, handler)
 
         emitIntersection(el)
         emitIntersection(el, false)
@@ -37,7 +37,7 @@ describe("scrollTrigger", () => {
     })
 
     it("uses the defaults of v-intersect", () => {
-        scrollTrigger(el, () => {})
+        intersect(el, () => {})
 
         expect(observersOf(el)[0]?.options).toEqual({
             root: null,
@@ -51,7 +51,7 @@ describe("scrollTrigger", () => {
         root.id = "scroller"
         document.body.append(root)
 
-        scrollTrigger(el, () => {}, { root: "#scroller", threshold: [0, 1] })
+        intersect(el, () => {}, { root: "#scroller", threshold: [0, 1] })
 
         expect(observersOf(el)[0]?.options).toMatchObject({
             root,
@@ -61,7 +61,7 @@ describe("scrollTrigger", () => {
 
     it("stops after the first entry with once", () => {
         const handler = vi.fn()
-        scrollTrigger(el, handler, { once: true })
+        intersect(el, handler, { once: true })
 
         emitIntersection(el)
         emitIntersection(el)
@@ -73,7 +73,7 @@ describe("scrollTrigger", () => {
     it("skips the handler while disabled, without using up once", () => {
         const disabled = ref(true)
         const handler = vi.fn()
-        scrollTrigger(el, handler, { once: true, disabled })
+        intersect(el, handler, { once: true, disabled })
 
         emitIntersection(el)
         expect(handler).not.toHaveBeenCalled()
@@ -85,7 +85,7 @@ describe("scrollTrigger", () => {
 
     it("returns a function that stops observing", () => {
         const handler = vi.fn()
-        const stop = scrollTrigger(el, handler)
+        const stop = intersect(el, handler)
 
         stop()
         emitIntersection(el)
@@ -96,7 +96,7 @@ describe("scrollTrigger", () => {
     it("does nothing without IntersectionObserver", () => {
         vi.stubGlobal("IntersectionObserver", undefined)
 
-        expect(isScrollTriggerSupported()).toBe(false)
-        expect(() => scrollTrigger(el, () => {})()).not.toThrow()
+        expect(isIntersectSupported()).toBe(false)
+        expect(() => intersect(el, () => {})()).not.toThrow()
     })
 })

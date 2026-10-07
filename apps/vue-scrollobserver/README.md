@@ -9,13 +9,7 @@ Run code when an element scrolls into view in Vue 3, with a directive, a composa
 
 ## English
 
-<p align="center">
-  <a href="https://github.com/osaxyz/vue-scrollobserver"><img src="https://img.shields.io/github/stars/osaxyz/vue-scrollobserver?style=social" alt="Star vue-scrollobserver on GitHub"></a><br>
-  <sub>If vue-scrollobserver helps you, a star keeps us going.</sub>
-</p>
-
-> [!IMPORTANT]
-> vue-scrollobserver requires Vue 3.3 or later. It is the successor of `@osaxyz/intersect`, rewritten in TypeScript. `v-intersect` works as before, and only the package name and the plugin import change.
+> **Important:** vue-scrollobserver requires Vue 3.3 or later. It is the successor of `@osaxyz/intersect`, rewritten in TypeScript. `v-intersect` works as before, and only the package name and the plugin import change.
 
 ### Quick start
 
@@ -52,8 +46,7 @@ const onEnter = (entry: IntersectionObserverEntry) => {
 
 4. Scroll the page. The handler runs when the element enters the viewport.
 
-> [!TIP]
-> Pass `rootMargin: "0px 0px -20% 0px"` to run the handler once the element is 20% of the screen above the bottom edge, instead of as soon as it appears.
+> **Tip:** Pass `rootMargin: "0px 0px -20% 0px"` to run the handler once the element is 20% of the screen above the bottom edge, instead of as soon as it appears.
 
 To track whether an element is in view, use the composable. Outside components, use `intersect()`.
 
@@ -175,13 +168,7 @@ Templates need no changes. `v-intersect`, its argument, the `(entry, el)` handle
 
 ## 日本語
 
-<p align="center">
-  <a href="https://github.com/osaxyz/vue-scrollobserver"><img src="https://img.shields.io/github/stars/osaxyz/vue-scrollobserver?style=social" alt="Star vue-scrollobserver on GitHub"></a><br>
-  <sub>vue-scrollobserver が役に立ったら、スターを付けてもらえると励みになります。</sub>
-</p>
-
-> [!IMPORTANT]
-> vue-scrollobserver には Vue 3.3 以上が必要です。`@osaxyz/intersect` の後継として TypeScript で書き直したものです。`v-intersect` はそのまま使え、変わるのはパッケージ名とプラグインの import だけです。
+> **重要**：vue-scrollobserver には Vue 3.3 以上が必要です。`@osaxyz/intersect` の後継として TypeScript で書き直したものです。`v-intersect` はそのまま使え、変わるのはパッケージ名とプラグインの import だけです。
 
 ### クイックスタート
 
@@ -218,8 +205,7 @@ const onEnter = (entry: IntersectionObserverEntry) => {
 
 4. ページをスクロールします。要素が画面に入るとハンドラが実行されます。
 
-> [!TIP]
-> `rootMargin: "0px 0px -20% 0px"` を渡すと、要素が見えた瞬間ではなく、画面の下端から 20% 上まで来たときに実行します。
+> **ヒント**：`rootMargin: "0px 0px -20% 0px"` を渡すと、要素が見えた瞬間ではなく、画面の下端から 20% 上まで来たときに実行します。
 
 要素が画面にあるかを追うときは composable を使います。コンポーネントの外では `intersect()` を使います。
 

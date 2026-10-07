@@ -1,4 +1,4 @@
-# vue-scrolltrigger を npm に公開する。
+# vue-scrollobserver を npm に公開する。
 # npm の Trusted Publishing（OIDC）で認証するので、npm のトークンを GitHub に置かない。
 # どのコミットからビルドしたかを示す provenance を付ける。
 # 依存のインストールとビルドは、公開の証明書を取り出せないジョブで行い、tarball だけを公開のジョブに渡す。
@@ -30,9 +30,9 @@ jobs:
         with:
           node-version: 24
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec turbo run typecheck test --filter=vue-scrolltrigger
+      - run: pnpm exec turbo run typecheck test --filter=vue-scrollobserver
       # prepack でビルドし、README と LICENSE を写してから tarball を作る。workspace の参照は版に置き換わる。
-      - run: pnpm --filter vue-scrolltrigger pack --pack-destination "$RUNNER_TEMP/package"
+      - run: pnpm --filter vue-scrollobserver pack --pack-destination "$RUNNER_TEMP/package"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: package

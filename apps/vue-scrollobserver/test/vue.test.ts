@@ -10,11 +10,11 @@ import {
     withDirectives,
 } from "vue"
 import {
-    createScrollTrigger,
-    type ScrollTriggerDirectiveValue,
-    type ScrollTriggerOptions,
-    useScrollTrigger,
-    vScrollTrigger,
+    createIntersect,
+    type IntersectDirectiveValue,
+    type IntersectOptions,
+    useIntersect,
+    vIntersect,
 } from "../src"
 import {
     emitIntersection,
@@ -31,9 +31,9 @@ afterEach(() => {
     document.body.innerHTML = ""
 })
 
-describe("v-scroll-trigger", () => {
+describe("v-intersect", () => {
     const mountSection = (
-        value: () => ScrollTriggerDirectiveValue,
+        value: () => IntersectDirectiveValue,
         arg?: () => string | undefined,
         modifiers: Partial<Record<"once", boolean>> = {},
     ) =>
@@ -41,7 +41,7 @@ describe("v-scroll-trigger", () => {
             defineComponent({
                 setup: () => () =>
                     withDirectives(h("section", "Content"), [
-                        [vScrollTrigger, value(), arg?.(), modifiers],
+                        [vIntersect, value(), arg?.(), modifiers],
                     ]),
             }),
             { attachTo: document.body },
@@ -137,7 +137,7 @@ describe("v-scroll-trigger", () => {
 
     it("stops observing when bound to false", async () => {
         const handler = vi.fn()
-        const value = shallowRef<ScrollTriggerDirectiveValue>(handler)
+        const value = shallowRef<IntersectDirectiveValue>(handler)
         const wrapper = mountSection(() => value.value)
         const el = wrapper.find("section").element
 
@@ -160,24 +160,24 @@ describe("v-scroll-trigger", () => {
     })
 })
 
-describe("useScrollTrigger", () => {
+describe("useIntersect", () => {
     const mountWith = (
         handler?: () => void,
-        options?: ScrollTriggerOptions,
+        options?: IntersectOptions,
         plugin_options = {},
     ) => {
-        let result!: ReturnType<typeof useScrollTrigger>
+        let result!: ReturnType<typeof useIntersect>
         const wrapper = mount(
             defineComponent({
                 setup() {
                     const target = shallowRef<HTMLElement | null>(null)
-                    result = useScrollTrigger(target, handler, options)
+                    result = useIntersect(target, handler, options)
                     return () => h("section", { ref: target }, "Content")
                 },
             }),
             {
                 attachTo: document.body,
-                global: { plugins: [createScrollTrigger(plugin_options)] },
+                global: { plugins: [createIntersect(plugin_options)] },
             },
         )
         return { wrapper, result, el: wrapper.find("section").element }
@@ -244,7 +244,7 @@ describe("useScrollTrigger", () => {
         const target = shallowRef<Element>(first)
         const scope = effectScope()
 
-        scope.run(() => useScrollTrigger(target))
+        scope.run(() => useIntersect(target))
         await nextTick()
         target.value = second
         await nextTick()
@@ -256,7 +256,7 @@ describe("useScrollTrigger", () => {
     })
 })
 
-describe("createScrollTrigger", () => {
+describe("createIntersect", () => {
     const mountTemplate = (
         template: string,
         handler: () => void,
@@ -266,14 +266,14 @@ describe("createScrollTrigger", () => {
             { template, setup: () => ({ handler }) },
             {
                 attachTo: document.body,
-                global: { plugins: [createScrollTrigger(plugin_options)] },
+                global: { plugins: [createIntersect(plugin_options)] },
             },
         )
 
-    it("registers v-scroll-trigger with the plugin defaults", () => {
+    it("registers v-intersect with the plugin defaults", () => {
         const handler = vi.fn()
         const wrapper = mountTemplate(
-            '<section v-scroll-trigger="handler">Content</section>',
+            '<section v-intersect="handler">Content</section>',
             handler,
             { threshold: 0.5 },
         )
@@ -289,7 +289,7 @@ describe("createScrollTrigger", () => {
         const disabled = ref(true)
         const handler = vi.fn()
         const wrapper = mountTemplate(
-            '<section v-scroll-trigger="handler">Content</section>',
+            '<section v-intersect="handler">Content</section>',
             handler,
             { disabled: () => disabled.value },
         )
@@ -306,9 +306,9 @@ describe("createScrollTrigger", () => {
     it("registers the directive under a custom name", () => {
         const handler = vi.fn()
         const wrapper = mountTemplate(
-            '<section v-intersect="handler">Content</section>',
+            '<section v-in-view="handler">Content</section>',
             handler,
-            { directive: "intersect" },
+            { directive: "in-view" },
         )
 
         emitIntersection(wrapper.find("section").element)

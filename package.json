@@ -1,5 +1,5 @@
 {
-    "name": "vue-scrolltrigger-monorepo",
+    "name": "vue-scrollobserver-monorepo",
     "scripts": {
         "build": "turbo run build",
         "dev": "turbo run dev",
