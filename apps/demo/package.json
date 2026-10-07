@@ -12,7 +12,7 @@
     },
     "dependencies": {
         "vue": "^3.5.0",
-        "vue-scrolltrigger": "workspace:*"
+        "vue-scrollobserver": "workspace:*"
     },
     "devDependencies": {
         "@osaxyz/tsconfig": "workspace:*",

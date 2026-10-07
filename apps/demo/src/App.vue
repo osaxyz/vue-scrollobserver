@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive, ref, useTemplateRef } from "vue"
-import { useScrollTrigger } from "vue-scrolltrigger"
+import { useIntersect } from "vue-scrollobserver"
 import { settings } from "./settings"
 
 const cards = Array.from({ length: 6 }, (_, index) => index + 1)
@@ -16,7 +16,7 @@ const reveal = (card: number) => () => {
 }
 
 const footer = useTemplateRef("footer")
-const { isIntersecting: is_footer_visible } = useScrollTrigger(footer)
+const { isIntersecting: is_footer_visible } = useIntersect(footer)
 </script>
 
 <template>
@@ -32,17 +32,17 @@ const { isIntersecting: is_footer_visible } = useScrollTrigger(footer)
     </header>
 
     <main>
-        <h1>vue-scrolltrigger</h1>
+        <h1>vue-scrollobserver</h1>
         <p>Scroll down. Each card counts how many times it entered the viewport.</p>
 
         <section aria-labelledby="every-heading">
             <h2 id="every-heading">
-                v-scroll-trigger
+                v-intersect
             </h2>
             <article
                 v-for="card in cards"
                 :key="card"
-                v-scroll-trigger="countEntry(card)"
+                v-intersect="countEntry(card)"
                 class="card"
             >
                 Card {{ card }} entered {{ counts[card] ?? 0 }} times
@@ -51,12 +51,12 @@ const { isIntersecting: is_footer_visible } = useScrollTrigger(footer)
 
         <section aria-labelledby="once-heading">
             <h2 id="once-heading">
-                v-scroll-trigger.once
+                v-intersect.once
             </h2>
             <article
                 v-for="card in cards"
                 :key="card"
-                v-scroll-trigger.once="reveal(card)"
+                v-intersect.once="reveal(card)"
                 class="card reveal"
                 :class="{ 'is-revealed': revealed.has(card) }"
             >
@@ -66,6 +66,6 @@ const { isIntersecting: is_footer_visible } = useScrollTrigger(footer)
     </main>
 
     <footer ref="footer">
-        useScrollTrigger tracks this footer.
+        useIntersect tracks this footer.
     </footer>
 </template>
