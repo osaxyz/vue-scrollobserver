@@ -1,0 +1,85 @@
+:root {
+    color-scheme: light dark;
+    font-family: system-ui, sans-serif;
+    line-height: 1.5;
+    color: #213547;
+    background-color: #ffffff;
+    --accent: #42b883;
+    --surface: #f4f4f5;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color: rgba(255, 255, 255, 0.87);
+        background-color: #1b1b1f;
+        --surface: #2a2a30;
+    }
+}
+
+body {
+    margin: 0;
+}
+
+.status {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--surface);
+}
+
+main {
+    max-width: 32rem;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+section {
+    margin-top: 2rem;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card {
+    display: grid;
+    place-items: center;
+    min-height: 40vh;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    background-color: var(--surface);
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(2rem);
+    transition:
+        opacity 0.6s,
+        transform 0.6s;
+}
+
+.reveal.is-revealed {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        transform: none;
+        transition: none;
+    }
+}
+
+footer {
+    padding: 4rem 1rem;
+    text-align: center;
+    color: #ffffff;
+    background-color: var(--accent);
+}
