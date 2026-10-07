@@ -1,6 +1,6 @@
 {
     "name": "vue-scrollobserver",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Run code when an element scrolls into view in Vue 3, with a directive, a composable, or a plain function built on IntersectionObserver",
     "author": "Arata Ouchi",
     "license": "MIT",
