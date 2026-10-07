@@ -3,7 +3,7 @@ import type { MaybeRefOrGetter } from "vue"
 /**
  * Called when the element enters the viewport, or the root if one is set.
  */
-export type ScrollTriggerHandler = (
+export type IntersectHandler = (
     entry: IntersectionObserverEntry,
     el: Element,
 ) => void
@@ -12,11 +12,11 @@ export type ScrollTriggerHandler = (
  * Element to observe against. A string is passed to `document.querySelector()`
  * when observing starts. `null` means the viewport.
  */
-export type ScrollTriggerRoot = Element | Document | string | null
+export type IntersectRoot = Element | Document | string | null
 
-export type ScrollTriggerOptions = {
+export type IntersectOptions = {
     /** @default null (the viewport) */
-    root?: ScrollTriggerRoot
+    root?: IntersectRoot
     /** @default "0px" */
     rootMargin?: string
     /** @default 0.01 */
@@ -27,22 +27,22 @@ export type ScrollTriggerOptions = {
     disabled?: MaybeRefOrGetter<boolean | undefined>
 }
 
-export type ScrollTriggerPluginOptions = ScrollTriggerOptions & {
+export type IntersectPluginOptions = IntersectOptions & {
     /**
      * Name of the globally registered directive, without the `v-` prefix.
      * Pass `false` to skip registration.
-     * @default "scroll-trigger"
+     * @default "intersect"
      */
     directive?: string | false
 }
 
 /**
- * `v-scroll-trigger` accepts a handler, or a handler with options.
+ * `v-intersect` accepts a handler, or a handler with options.
  * `false`, `null` and `undefined` leave the element unobserved.
  */
-export type ScrollTriggerDirectiveValue =
-    | ScrollTriggerHandler
-    | (ScrollTriggerOptions & { handler: ScrollTriggerHandler })
+export type IntersectDirectiveValue =
+    | IntersectHandler
+    | (IntersectOptions & { handler: IntersectHandler })
     | false
     | null
     | undefined

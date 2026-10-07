@@ -10,10 +10,10 @@ import {
     watch,
 } from "vue"
 import { observeIntersection } from "./core"
-import { SCROLL_TRIGGER_KEY } from "./plugin"
-import type { ScrollTriggerHandler, ScrollTriggerOptions } from "./types"
+import { INTERSECT_KEY } from "./plugin"
+import type { IntersectHandler, IntersectOptions } from "./types"
 
-export type UseScrollTriggerReturn = {
+export type UseIntersectReturn = {
     /** Whether the target is in view. Stays `false` during SSR. */
     isIntersecting: Readonly<Ref<boolean>>
     /** Stop observing. Called automatically when the scope is disposed. */
@@ -23,16 +23,16 @@ export type UseScrollTriggerReturn = {
 /**
  * Composable that tracks whether `target` is in view, and runs `handler`
  * each time it enters. Falls back to the defaults given to
- * `createScrollTrigger()` when the plugin is installed.
+ * `createIntersect()` when the plugin is installed.
  *
  * @example
  * ```vue
  * <script setup lang="ts">
  * import { useTemplateRef } from "vue"
- * import { useScrollTrigger } from "vue-scrolltrigger"
+ * import { useIntersect } from "vue-scrollobserver"
  *
  * const target = useTemplateRef("target")
- * const { isIntersecting } = useScrollTrigger(target)
+ * const { isIntersecting } = useIntersect(target)
  * </script>
  *
  * <template>
@@ -40,15 +40,15 @@ export type UseScrollTriggerReturn = {
  * </template>
  * ```
  */
-export const useScrollTrigger = (
+export const useIntersect = (
     target: MaybeRefOrGetter<Element | null | undefined>,
-    handler?: ScrollTriggerHandler,
-    options: ScrollTriggerOptions = {},
-): UseScrollTriggerReturn => {
+    handler?: IntersectHandler,
+    options: IntersectOptions = {},
+): UseIntersectReturn => {
     const app_options = hasInjectionContext()
-        ? inject(SCROLL_TRIGGER_KEY, null)
+        ? inject(INTERSECT_KEY, null)
         : null
-    const resolved: ScrollTriggerOptions = { ...app_options, ...options }
+    const resolved: IntersectOptions = { ...app_options, ...options }
     const is_intersecting = shallowRef(false)
     let disconnect = () => {}
     let is_done = false

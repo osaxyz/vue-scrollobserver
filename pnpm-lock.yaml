@@ -209,9 +209,9 @@ importers:
       vue:
         specifier: ^3.5.0
         version: 3.5.43(typescript@5.7.3)
-      vue-scrolltrigger:
+      vue-scrollobserver:
         specifier: workspace:*
-        version: link:../vue-scrolltrigger
+        version: link:../vue-scrollobserver
     devDependencies:
       '@osaxyz/tsconfig':
         specifier: workspace:*
@@ -238,7 +238,7 @@ importers:
         specifier: ^2.2.0
         version: 2.2.12(typescript@5.7.3)
 
-  apps/vue-scrolltrigger:
+  apps/vue-scrollobserver:
     devDependencies:
       '@osaxyz/tsconfig':
         specifier: workspace:*

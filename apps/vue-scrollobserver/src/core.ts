@@ -1,9 +1,5 @@
 import { toValue } from "vue"
-import type {
-    ScrollTriggerHandler,
-    ScrollTriggerOptions,
-    ScrollTriggerRoot,
-} from "./types"
+import type { IntersectHandler, IntersectOptions, IntersectRoot } from "./types"
 
 export const DEFAULT_ROOT_MARGIN = "0px"
 export const DEFAULT_THRESHOLD = 0.01
@@ -11,10 +7,10 @@ export const DEFAULT_THRESHOLD = 0.01
 /**
  * Whether the browser has `IntersectionObserver`. Always `false` during SSR.
  */
-export const isScrollTriggerSupported = (): boolean =>
+export const isIntersectSupported = (): boolean =>
     typeof IntersectionObserver === "function"
 
-const resolveRoot = (root: ScrollTriggerRoot | undefined) =>
+const resolveRoot = (root: IntersectRoot | undefined) =>
     typeof root === "string" ? document.querySelector(root) : (root ?? null)
 
 /**
@@ -24,10 +20,10 @@ const resolveRoot = (root: ScrollTriggerRoot | undefined) =>
  */
 export const observeIntersection = (
     el: Element,
-    options: ScrollTriggerOptions,
+    options: IntersectOptions,
     callback: (entry: IntersectionObserverEntry) => void,
 ): (() => void) => {
-    if (!isScrollTriggerSupported()) {
+    if (!isIntersectSupported()) {
         return () => {}
     }
 
@@ -57,15 +53,15 @@ export const observeIntersection = (
  *
  * @example
  * ```ts
- * const stop = scrollTrigger(el, (entry) => {
+ * const stop = intersect(el, (entry) => {
  *     entry.target.classList.add("is-visible")
  * }, { once: true })
  * ```
  */
-export const scrollTrigger = (
+export const intersect = (
     el: Element,
-    handler: ScrollTriggerHandler,
-    options: ScrollTriggerOptions = {},
+    handler: IntersectHandler,
+    options: IntersectOptions = {},
 ): (() => void) => {
     const stop = observeIntersection(el, options, (entry) => {
         if (!entry.isIntersecting || toValue(options.disabled)) {

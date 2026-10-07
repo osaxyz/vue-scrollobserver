@@ -1,5 +1,5 @@
 {
-    "name": "vue-scrolltrigger",
+    "name": "vue-scrollobserver",
     "version": "1.0.0",
     "description": "Run code when an element scrolls into view in Vue 3, with a directive, a composable, or a plain function built on IntersectionObserver",
     "author": "Arata Ouchi",
@@ -34,8 +34,8 @@
         "vue",
         "vue3",
         "scroll",
-        "scroll trigger",
-        "scrolltrigger",
+        "scroll observer",
+        "scrollobserver",
         "intersection observer",
         "intersectionobserver",
         "in view",
@@ -48,13 +48,13 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/osaxyz/vue-scrolltrigger.git",
-        "directory": "apps/vue-scrolltrigger"
+        "url": "git+https://github.com/osaxyz/vue-scrollobserver.git",
+        "directory": "apps/vue-scrollobserver"
     },
     "bugs": {
-        "url": "https://github.com/osaxyz/vue-scrolltrigger/issues"
+        "url": "https://github.com/osaxyz/vue-scrollobserver/issues"
     },
-    "homepage": "https://github.com/osaxyz/vue-scrolltrigger#readme",
+    "homepage": "https://github.com/osaxyz/vue-scrollobserver#readme",
     "peerDependencies": {
         "vue": "^3.3.0"
     },
