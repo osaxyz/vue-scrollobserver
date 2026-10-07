@@ -1,4 +1,4 @@
-# vue-scrolltrigger
+# vue-scrollobserver
 
 Run code when an element scrolls into view in Vue 3, with a directive, a composable, or a plain function.<br>
 <sub>要素が画面に入ったときに処理を実行する、Vue 3 向けのディレクティブ、composable、関数です。</sub>
@@ -10,32 +10,32 @@ Run code when an element scrolls into view in Vue 3, with a directive, a composa
 ## English
 
 <p align="center">
-  <a href="https://github.com/osaxyz/vue-scrolltrigger"><img src="https://img.shields.io/github/stars/osaxyz/vue-scrolltrigger?style=social" alt="Star vue-scrolltrigger on GitHub"></a><br>
-  <sub>If vue-scrolltrigger helps you, a star keeps us going.</sub>
+  <a href="https://github.com/osaxyz/vue-scrollobserver"><img src="https://img.shields.io/github/stars/osaxyz/vue-scrollobserver?style=social" alt="Star vue-scrollobserver on GitHub"></a><br>
+  <sub>If vue-scrollobserver helps you, a star keeps us going.</sub>
 </p>
 
 > [!IMPORTANT]
-> vue-scrolltrigger requires Vue 3.3 or later. It is the successor of `@osaxyz/intersect`, rewritten in TypeScript, and the directive is now `v-scroll-trigger` instead of `v-intersect`.
+> vue-scrollobserver requires Vue 3.3 or later. It is the successor of `@osaxyz/intersect`, rewritten in TypeScript. `v-intersect` works as before, and only the package name and the plugin import change.
 
 ### Quick start
 
 1. Install the package.
 
 ```sh
-npm install vue-scrolltrigger
+npm install vue-scrollobserver
 ```
 
 2. Register the plugin.
 
 ```ts
 import { createApp } from "vue"
-import { createScrollTrigger } from "vue-scrolltrigger"
+import { createIntersect } from "vue-scrollobserver"
 import App from "./App.vue"
 
-createApp(App).use(createScrollTrigger()).mount("#app")
+createApp(App).use(createIntersect()).mount("#app")
 ```
 
-3. Add `v-scroll-trigger` to an element.
+3. Add `v-intersect` to an element.
 
 ```vue
 <script setup lang="ts">
@@ -45,8 +45,8 @@ const onEnter = (entry: IntersectionObserverEntry) => {
 </script>
 
 <template>
-  <section v-scroll-trigger="onEnter">Runs every time it enters</section>
-  <section v-scroll-trigger.once="onEnter">Runs only the first time</section>
+  <section v-intersect="onEnter">Runs every time it enters</section>
+  <section v-intersect.once="onEnter">Runs only the first time</section>
 </template>
 ```
 
@@ -55,16 +55,16 @@ const onEnter = (entry: IntersectionObserverEntry) => {
 > [!TIP]
 > Pass `rootMargin: "0px 0px -20% 0px"` to run the handler once the element is 20% of the screen above the bottom edge, instead of as soon as it appears.
 
-To track whether an element is in view, use the composable. Outside components, use `scrollTrigger()`.
+To track whether an element is in view, use the composable. Outside components, use `intersect()`.
 
 ```ts
 import { useTemplateRef } from "vue"
-import { scrollTrigger, useScrollTrigger } from "vue-scrolltrigger"
+import { intersect, useIntersect } from "vue-scrollobserver"
 
 const target = useTemplateRef("target")
-const { isIntersecting } = useScrollTrigger(target)
+const { isIntersecting } = useIntersect(target)
 
-const stop = scrollTrigger(el, (entry) => console.log(entry), { once: true })
+const stop = intersect(el, (entry) => console.log(entry), { once: true })
 ```
 
 ### Technology
@@ -73,7 +73,7 @@ const stop = scrollTrigger(el, (entry) => console.log(entry), { once: true })
 <summary>Built on IntersectionObserver</summary>
 <br>
 
-vue-scrolltrigger does not listen to `scroll` events or read layout on every frame. The browser reports when an element crosses the viewport, so pages with many triggers stay smooth. Each element gets its own observer, which is disconnected when the element unmounts or when `once` has run.
+vue-scrollobserver does not listen to `scroll` events or read layout on every frame. The browser reports when an element crosses the viewport, so pages with many triggers stay smooth. Each element gets its own observer, which is disconnected when the element unmounts or when `once` has run.
 
 </details>
 
@@ -81,7 +81,7 @@ vue-scrolltrigger does not listen to `scroll` events or read layout on every fra
 <summary>SSR safe</summary>
 <br>
 
-Nothing is observed on the server. `isIntersecting` from `useScrollTrigger()` starts as `false`, so the server render and hydration agree, and the directive renders no attributes on the server. Where `IntersectionObserver` does not exist, every entry point does nothing.
+Nothing is observed on the server. `isIntersecting` from `useIntersect()` starts as `false`, so the server render and hydration agree, and the directive renders no attributes on the server. Where `IntersectionObserver` does not exist, every entry point does nothing.
 
 </details>
 
@@ -96,18 +96,18 @@ Releases are built and published from GitHub Actions with npm Trusted Publishing
 ### Specification
 
 <details>
-<summary>v-scroll-trigger</summary>
+<summary>v-intersect</summary>
 <br>
 
 | Usage | Behavior |
 | --- | --- |
-| `v-scroll-trigger="handler"` | Runs `handler(entry, el)` each time the element enters |
-| `v-scroll-trigger.once="handler"` | Runs once, then stops observing |
-| `v-scroll-trigger:[selector]="handler"` | Observes against the element matching the selector instead of the viewport |
-| `v-scroll-trigger="{ handler, ...options }"` | Passes options for this element |
-| `v-scroll-trigger="false"` | Does nothing |
+| `v-intersect="handler"` | Runs `handler(entry, el)` each time the element enters |
+| `v-intersect.once="handler"` | Runs once, then stops observing |
+| `v-intersect:[selector]="handler"` | Observes against the element matching the selector instead of the viewport |
+| `v-intersect="{ handler, ...options }"` | Passes options for this element |
+| `v-intersect="false"` | Does nothing |
 
-The plugin registers the directive with the options you pass. Without the plugin, import `vScrollTrigger` in `<script setup>`. `createScrollTriggerDirective(options)` builds a directive with its own defaults.
+The plugin registers the directive with the options you pass. Without the plugin, import `vIntersect` in `<script setup>`. `createIntersectDirective(options)` builds a directive with its own defaults.
 
 </details>
 
@@ -117,11 +117,11 @@ The plugin registers the directive with the options you pass. Without the plugin
 
 | Export | Description |
 | --- | --- |
-| `scrollTrigger(el, handler, options?)` | Runs `handler` when `el` enters, and returns a function that stops observing. Can be called anywhere |
-| `isScrollTriggerSupported()` | Whether the browser has `IntersectionObserver`. `false` during SSR |
-| `useScrollTrigger(target, handler?, options?)` | Returns a readonly `isIntersecting` ref and `stop()`. `target` can be a ref, a getter or an element, and a new element is observed when it changes |
-| `createScrollTrigger(options?)` | Plugin that registers the directive and sets app-wide defaults |
-| `createScrollTriggerDirective(options?)` | Builds a directive with its own defaults |
+| `intersect(el, handler, options?)` | Runs `handler` when `el` enters, and returns a function that stops observing. Can be called anywhere |
+| `isIntersectSupported()` | Whether the browser has `IntersectionObserver`. `false` during SSR |
+| `useIntersect(target, handler?, options?)` | Returns a readonly `isIntersecting` ref and `stop()`. `target` can be a ref, a getter or an element, and a new element is observed when it changes |
+| `createIntersect(options?)` | Plugin that registers the directive and sets app-wide defaults |
+| `createIntersectDirective(options?)` | Builds a directive with its own defaults |
 
 </details>
 
@@ -136,9 +136,9 @@ The plugin registers the directive with the options you pass. Without the plugin
 | `threshold` | `number \| number[]` | `0.01` | How much of the element must be visible |
 | `once` | `boolean` | `false` | Stops observing after the handler runs once |
 | `disabled` | `MaybeRefOrGetter<boolean>` | `false` | Skips the handler while true. Skipped entries do not use up `once` |
-| `directive` | `string \| false` | `"scroll-trigger"` | `createScrollTrigger` only. Name of the directive. `false` skips registration |
+| `directive` | `string \| false` | `"intersect"` | `createIntersect` only. Name of the directive. `false` skips registration |
 
-Options given to the directive or to `useScrollTrigger()` take precedence over the plugin options.
+Options given to the directive or to `useIntersect()` take precedence over the plugin options.
 
 </details>
 
@@ -149,10 +149,10 @@ Options given to the directive or to `useScrollTrigger()` take precedence over t
 Register the plugin in a file under `plugins/`.
 
 ```ts
-import { createScrollTrigger } from "vue-scrolltrigger"
+import { createIntersect } from "vue-scrollobserver"
 
 export default defineNuxtPlugin((nuxtApp) => {
-    nuxtApp.vueApp.use(createScrollTrigger())
+    nuxtApp.vueApp.use(createIntersect())
 })
 ```
 
@@ -162,14 +162,12 @@ export default defineNuxtPlugin((nuxtApp) => {
 <summary>Migrating from @osaxyz/intersect</summary>
 <br>
 
-| @osaxyz/intersect | vue-scrolltrigger |
+| @osaxyz/intersect | vue-scrollobserver |
 | --- | --- |
-| `import intersectDirective from "@osaxyz/intersect"` | `import { createScrollTrigger } from "vue-scrolltrigger"` |
-| `app.use(intersectDirective)` | `app.use(createScrollTrigger())` |
-| `v-intersect="handler"` | `v-scroll-trigger="handler"` |
-| `v-intersect:[selector]="handler"` | `v-scroll-trigger:[selector]="handler"` |
+| `import intersectDirective from "@osaxyz/intersect"` | `import { createIntersect } from "vue-scrollobserver"` |
+| `app.use(intersectDirective)` | `app.use(createIntersect())` |
 
-The handler still receives `(entry, el)`, and the defaults are the same. To keep the old name in templates, pass `createScrollTrigger({ directive: "intersect" })`.
+Templates need no changes. `v-intersect`, its argument, the `(entry, el)` handler and the defaults are the same.
 
 </details>
 
@@ -178,32 +176,32 @@ The handler still receives `(entry, el)`, and the defaults are the same. To keep
 ## 日本語
 
 <p align="center">
-  <a href="https://github.com/osaxyz/vue-scrolltrigger"><img src="https://img.shields.io/github/stars/osaxyz/vue-scrolltrigger?style=social" alt="Star vue-scrolltrigger on GitHub"></a><br>
-  <sub>vue-scrolltrigger が役に立ったら、スターを付けてもらえると励みになります。</sub>
+  <a href="https://github.com/osaxyz/vue-scrollobserver"><img src="https://img.shields.io/github/stars/osaxyz/vue-scrollobserver?style=social" alt="Star vue-scrollobserver on GitHub"></a><br>
+  <sub>vue-scrollobserver が役に立ったら、スターを付けてもらえると励みになります。</sub>
 </p>
 
 > [!IMPORTANT]
-> vue-scrolltrigger には Vue 3.3 以上が必要です。`@osaxyz/intersect` の後継として TypeScript で書き直したもので、ディレクティブは `v-intersect` から `v-scroll-trigger` に変わりました。
+> vue-scrollobserver には Vue 3.3 以上が必要です。`@osaxyz/intersect` の後継として TypeScript で書き直したものです。`v-intersect` はそのまま使え、変わるのはパッケージ名とプラグインの import だけです。
 
 ### クイックスタート
 
 1. パッケージをインストールします。
 
 ```sh
-npm install vue-scrolltrigger
+npm install vue-scrollobserver
 ```
 
 2. プラグインを登録します。
 
 ```ts
 import { createApp } from "vue"
-import { createScrollTrigger } from "vue-scrolltrigger"
+import { createIntersect } from "vue-scrollobserver"
 import App from "./App.vue"
 
-createApp(App).use(createScrollTrigger()).mount("#app")
+createApp(App).use(createIntersect()).mount("#app")
 ```
 
-3. 要素に `v-scroll-trigger` を付けます。
+3. 要素に `v-intersect` を付けます。
 
 ```vue
 <script setup lang="ts">
@@ -213,8 +211,8 @@ const onEnter = (entry: IntersectionObserverEntry) => {
 </script>
 
 <template>
-  <section v-scroll-trigger="onEnter">画面に入るたびに実行します</section>
-  <section v-scroll-trigger.once="onEnter">最初の1回だけ実行します</section>
+  <section v-intersect="onEnter">画面に入るたびに実行します</section>
+  <section v-intersect.once="onEnter">最初の1回だけ実行します</section>
 </template>
 ```
 
@@ -223,16 +221,16 @@ const onEnter = (entry: IntersectionObserverEntry) => {
 > [!TIP]
 > `rootMargin: "0px 0px -20% 0px"` を渡すと、要素が見えた瞬間ではなく、画面の下端から 20% 上まで来たときに実行します。
 
-要素が画面にあるかを追うときは composable を使います。コンポーネントの外では `scrollTrigger()` を使います。
+要素が画面にあるかを追うときは composable を使います。コンポーネントの外では `intersect()` を使います。
 
 ```ts
 import { useTemplateRef } from "vue"
-import { scrollTrigger, useScrollTrigger } from "vue-scrolltrigger"
+import { intersect, useIntersect } from "vue-scrollobserver"
 
 const target = useTemplateRef("target")
-const { isIntersecting } = useScrollTrigger(target)
+const { isIntersecting } = useIntersect(target)
 
-const stop = scrollTrigger(el, (entry) => console.log(entry), { once: true })
+const stop = intersect(el, (entry) => console.log(entry), { once: true })
 ```
 
 ### テクノロジー
@@ -249,7 +247,7 @@ const stop = scrollTrigger(el, (entry) => console.log(entry), { once: true })
 <summary>SSR でも安全に使えます</summary>
 <br>
 
-サーバーでは何も監視しません。`useScrollTrigger()` の `isIntersecting` は `false` で始まるので、サーバーの描画とハイドレーションの結果が一致します。ディレクティブはサーバーでは属性を出力しません。`IntersectionObserver` がない環境では、どの入口も何もしません。
+サーバーでは何も監視しません。`useIntersect()` の `isIntersecting` は `false` で始まるので、サーバーの描画とハイドレーションの結果が一致します。ディレクティブはサーバーでは属性を出力しません。`IntersectionObserver` がない環境では、どの入口も何もしません。
 
 </details>
 
@@ -264,18 +262,18 @@ const stop = scrollTrigger(el, (entry) => console.log(entry), { once: true })
 ### 仕様
 
 <details>
-<summary>v-scroll-trigger</summary>
+<summary>v-intersect</summary>
 <br>
 
 | 書き方 | 動作 |
 | --- | --- |
-| `v-scroll-trigger="handler"` | 要素が画面に入るたびに `handler(entry, el)` を実行します |
-| `v-scroll-trigger.once="handler"` | 1回だけ実行し、監視をやめます |
-| `v-scroll-trigger:[selector]="handler"` | 画面の代わりに、セレクタに一致する要素を基準にします |
-| `v-scroll-trigger="{ handler, ...options }"` | この要素だけのオプションを渡します |
-| `v-scroll-trigger="false"` | 何もしません |
+| `v-intersect="handler"` | 要素が画面に入るたびに `handler(entry, el)` を実行します |
+| `v-intersect.once="handler"` | 1回だけ実行し、監視をやめます |
+| `v-intersect:[selector]="handler"` | 画面の代わりに、セレクタに一致する要素を基準にします |
+| `v-intersect="{ handler, ...options }"` | この要素だけのオプションを渡します |
+| `v-intersect="false"` | 何もしません |
 
-プラグインは、渡したオプションでディレクティブを登録します。プラグインを使わない場合は、`<script setup>` で `vScrollTrigger` を import して使います。`createScrollTriggerDirective(options)` で、独自の既定値を持つディレクティブを作れます。
+プラグインは、渡したオプションでディレクティブを登録します。プラグインを使わない場合は、`<script setup>` で `vIntersect` を import して使います。`createIntersectDirective(options)` で、独自の既定値を持つディレクティブを作れます。
 
 </details>
 
@@ -285,11 +283,11 @@ const stop = scrollTrigger(el, (entry) => console.log(entry), { once: true })
 
 | export | 説明 |
 | --- | --- |
-| `scrollTrigger(el, handler, options?)` | `el` が画面に入ったら `handler` を実行し、監視をやめる関数を返します。どこからでも呼べます |
-| `isScrollTriggerSupported()` | ブラウザに `IntersectionObserver` があるかを返します。SSR 中は `false` です |
-| `useScrollTrigger(target, handler?, options?)` | 読み取り専用の ref の `isIntersecting` と `stop()` を返します。`target` には ref、getter、要素を渡せ、変わると新しい要素を監視します |
-| `createScrollTrigger(options?)` | ディレクティブを登録し、アプリ全体の既定値を設定するプラグインです |
-| `createScrollTriggerDirective(options?)` | 独自の既定値を持つディレクティブを作ります |
+| `intersect(el, handler, options?)` | `el` が画面に入ったら `handler` を実行し、監視をやめる関数を返します。どこからでも呼べます |
+| `isIntersectSupported()` | ブラウザに `IntersectionObserver` があるかを返します。SSR 中は `false` です |
+| `useIntersect(target, handler?, options?)` | 読み取り専用の ref の `isIntersecting` と `stop()` を返します。`target` には ref、getter、要素を渡せ、変わると新しい要素を監視します |
+| `createIntersect(options?)` | ディレクティブを登録し、アプリ全体の既定値を設定するプラグインです |
+| `createIntersectDirective(options?)` | 独自の既定値を持つディレクティブを作ります |
 
 </details>
 
@@ -304,9 +302,9 @@ const stop = scrollTrigger(el, (entry) => console.log(entry), { once: true })
 | `threshold` | `number \| number[]` | `0.01` | 要素のどれだけが見えたら実行するかです |
 | `once` | `boolean` | `false` | ハンドラを1回実行したら監視をやめます |
 | `disabled` | `MaybeRefOrGetter<boolean>` | `false` | true の間はハンドラを実行しません。実行しなかった回は `once` の1回に数えません |
-| `directive` | `string \| false` | `"scroll-trigger"` | `createScrollTrigger` だけで使います。ディレクティブの名前で、`false` なら登録しません |
+| `directive` | `string \| false` | `"intersect"` | `createIntersect` だけで使います。ディレクティブの名前で、`false` なら登録しません |
 
-ディレクティブや `useScrollTrigger()` に渡したオプションは、プラグインのオプションより優先します。
+ディレクティブや `useIntersect()` に渡したオプションは、プラグインのオプションより優先します。
 
 </details>
 
@@ -317,10 +315,10 @@ const stop = scrollTrigger(el, (entry) => console.log(entry), { once: true })
 `plugins/` の下のファイルでプラグインを登録します。
 
 ```ts
-import { createScrollTrigger } from "vue-scrolltrigger"
+import { createIntersect } from "vue-scrollobserver"
 
 export default defineNuxtPlugin((nuxtApp) => {
-    nuxtApp.vueApp.use(createScrollTrigger())
+    nuxtApp.vueApp.use(createIntersect())
 })
 ```
 
@@ -330,13 +328,11 @@ export default defineNuxtPlugin((nuxtApp) => {
 <summary>@osaxyz/intersect からの移行</summary>
 <br>
 
-| @osaxyz/intersect | vue-scrolltrigger |
+| @osaxyz/intersect | vue-scrollobserver |
 | --- | --- |
-| `import intersectDirective from "@osaxyz/intersect"` | `import { createScrollTrigger } from "vue-scrolltrigger"` |
-| `app.use(intersectDirective)` | `app.use(createScrollTrigger())` |
-| `v-intersect="handler"` | `v-scroll-trigger="handler"` |
-| `v-intersect:[selector]="handler"` | `v-scroll-trigger:[selector]="handler"` |
+| `import intersectDirective from "@osaxyz/intersect"` | `import { createIntersect } from "vue-scrollobserver"` |
+| `app.use(intersectDirective)` | `app.use(createIntersect())` |
 
-ハンドラが `(entry, el)` を受け取る点と、既定値は変わりません。テンプレートで古い名前を使い続けるときは、`createScrollTrigger({ directive: "intersect" })` を渡します。
+テンプレートは書き換えなくて済みます。`v-intersect`、その引数、`(entry, el)` を受け取るハンドラ、既定値は変わりません。
 
 </details>

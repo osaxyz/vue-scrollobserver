@@ -1,4 +1,4 @@
-# Contributing to vue-scrolltrigger
+# Contributing to vue-scrollobserver
 
 How to open issues, set up the project, and send pull requests.<br>
 <sub>Issue、開発環境、PR の進め方をまとめています。</sub>
@@ -10,7 +10,7 @@ How to open issues, set up the project, and send pull requests.<br>
 ## English
 
 > [!IMPORTANT]
-> We accept pull requests only for work a maintainer has agreed to in an [issue](https://github.com/osaxyz/vue-scrolltrigger/issues). Pull requests without a prior agreement may be closed. We want to agree on the API and behavior before reviewing code.
+> We accept pull requests only for work a maintainer has agreed to in an [issue](https://github.com/osaxyz/vue-scrollobserver/issues). Pull requests without a prior agreement may be closed. We want to agree on the API and behavior before reviewing code.
 
 ### Workflow
 
@@ -28,8 +28,8 @@ This is a Turborepo monorepo managed with pnpm.
 
 | Path | Contents |
 | --- | --- |
-| `apps/vue-scrolltrigger` | The library published to npm |
-| `apps/demo` | A Vite app for trying scroll triggers |
+| `apps/vue-scrollobserver` | The library published to npm |
+| `apps/demo` | A Vite app for trying the directive and composable while scrolling |
 | `packages/tsconfig` | Shared TypeScript settings |
 
 | Command | What it does |
@@ -42,7 +42,7 @@ This is a Turborepo monorepo managed with pnpm.
 | `pnpm dev` | Watches the library and serves the demo |
 | `pnpm exec turbo run deploy` | Builds and deploys the demo to Cloudflare Workers |
 
-npm shows `apps/vue-scrolltrigger/README.md`, not the root README. When you change the README, update both. npm does not support GitHub alerts or relative paths, so the package README writes alerts as `> **Important:** …` and uses absolute URLs for images.
+npm shows `apps/vue-scrollobserver/README.md`, not the root README. When you change the README, update both. npm does not support GitHub alerts or relative paths, so the package README writes alerts as `> **Important:** …` and uses absolute URLs for images.
 
 </details>
 
@@ -50,7 +50,7 @@ npm shows `apps/vue-scrolltrigger/README.md`, not the root README. When you chan
 <summary>Deploying the demo</summary>
 <br>
 
-The demo is served from Cloudflare Workers Static Assets at <https://vue-scrolltrigger-demo.original-sin-architecture.workers.dev>, on the Original SIN Architecture account. `apps/demo/wrangler.jsonc` has no Worker script and serves the Vite build in `dist`.
+The demo is served from Cloudflare Workers Static Assets at <https://vue-scrollobserver-demo.original-sin-architecture.workers.dev>, on the Original SIN Architecture account. `apps/demo/wrangler.jsonc` has no Worker script and serves the Vite build in `dist`.
 
 ```sh
 pnpm exec turbo run deploy
@@ -67,10 +67,10 @@ Turborepo builds the library and the demo first. Wrangler needs to be logged in 
 Write `type(scope): description`. The scope is the top-level directory that changed, the package name for changes under `apps/` or `packages/`, or `repo` for changes across the repository. The description is a short Japanese sentence that ends with an action.
 
 ```text
-OK  fix(vue-scrolltrigger): once で2回実行される不具合を修正
+OK  fix(vue-scrollobserver): once で2回実行される不具合を修正
 OK  docs(repo): README のクイックスタートを更新
 NG  fix: bug
-NG  feat(vue-scrolltrigger): ディレクティブ
+NG  feat(vue-scrollobserver): ディレクティブ
 ```
 
 | type | Use for |
@@ -91,7 +91,7 @@ NG  feat(vue-scrolltrigger): ディレクティブ
 
 Releases are published by `.github/workflows/publish.yml` with npm Trusted Publishing and provenance. Nobody publishes from a local machine.
 
-1. Update `version` in `apps/vue-scrolltrigger/package.json` and `VERSION`.
+1. Update `version` in `apps/vue-scrollobserver/package.json` and `VERSION`.
 2. Merge the change into `main`.
 3. Run the workflow.
 
@@ -108,7 +108,7 @@ The workflow refuses to run from any branch other than `main`, and only the `npm
 ## 日本語
 
 > [!IMPORTANT]
-> PR は、メンテナーが [Issue](https://github.com/osaxyz/vue-scrolltrigger/issues) で合意した作業に限って受け付けます。事前の合意がない PR は閉じることがあります。コードをレビューする前に、API と振る舞いを合意しておきたいためです。
+> PR は、メンテナーが [Issue](https://github.com/osaxyz/vue-scrollobserver/issues) で合意した作業に限って受け付けます。事前の合意がない PR は閉じることがあります。コードをレビューする前に、API と振る舞いを合意しておきたいためです。
 
 ### 進め方
 
@@ -126,7 +126,7 @@ pnpm で管理する Turborepo のモノレポです。
 
 | パス | 中身 |
 | --- | --- |
-| `apps/vue-scrolltrigger` | npm に公開するライブラリ |
+| `apps/vue-scrollobserver` | npm に公開するライブラリ |
 | `apps/demo` | スクロールでの動作を試す Vite のアプリ |
 | `packages/tsconfig` | 共有の TypeScript 設定 |
 
@@ -140,7 +140,7 @@ pnpm で管理する Turborepo のモノレポです。
 | `pnpm dev` | ライブラリを監視しながら、デモを配信します |
 | `pnpm exec turbo run deploy` | デモをビルドして Cloudflare Workers にデプロイします |
 
-npm に表示されるのはルートの README ではなく `apps/vue-scrolltrigger/README.md` です。README を変えたら両方を更新します。npm は GitHub のアラートと相対パスに対応していないので、パッケージの README ではアラートを `> **重要**：…` の形で書き、画像は絶対 URL にします。
+npm に表示されるのはルートの README ではなく `apps/vue-scrollobserver/README.md` です。README を変えたら両方を更新します。npm は GitHub のアラートと相対パスに対応していないので、パッケージの README ではアラートを `> **重要**：…` の形で書き、画像は絶対 URL にします。
 
 </details>
 
@@ -148,7 +148,7 @@ npm に表示されるのはルートの README ではなく `apps/vue-scrolltri
 <summary>デモのデプロイ</summary>
 <br>
 
-デモは Cloudflare の Original SIN Architecture のアカウントで、Workers Static Assets から <https://vue-scrolltrigger-demo.original-sin-architecture.workers.dev> に配信しています。`apps/demo/wrangler.jsonc` は Worker のスクリプトを持たず、Vite がビルドした `dist` を配信します。
+デモは Cloudflare の Original SIN Architecture のアカウントで、Workers Static Assets から <https://vue-scrollobserver-demo.original-sin-architecture.workers.dev> に配信しています。`apps/demo/wrangler.jsonc` は Worker のスクリプトを持たず、Vite がビルドした `dist` を配信します。
 
 ```sh
 pnpm exec turbo run deploy
@@ -165,10 +165,10 @@ Turborepo がライブラリとデモを先にビルドします。Wrangler は�
 `type(scope): 説明` の形で書きます。scope は変更したトップレベルのディレクトリ名で、`apps/` と `packages/` の下を変えたときはパッケージ名にし、リポジトリ全体に関わる変更は `repo` にします。説明は動作で終わる短い日本語の文にします。履歴を検索しやすくし、人とエージェントのどちらが書いても同じ見た目にするためです。
 
 ```text
-OK  fix(vue-scrolltrigger): once で2回実行される不具合を修正
+OK  fix(vue-scrollobserver): once で2回実行される不具合を修正
 OK  docs(repo): README のクイックスタートを更新
 NG  fix: bug
-NG  feat(vue-scrolltrigger): ディレクティブ
+NG  feat(vue-scrollobserver): ディレクティブ
 ```
 
 | type | 使う場面 |
@@ -189,7 +189,7 @@ NG  feat(vue-scrolltrigger): ディレクティブ
 
 リリースは `.github/workflows/publish.yml` が npm の Trusted Publishing と provenance 付きで公開します。手元のマシンからは公開しません。
 
-1. `apps/vue-scrolltrigger/package.json` と `VERSION` の `version` を更新します。
+1. `apps/vue-scrollobserver/package.json` と `VERSION` の `version` を更新します。
 2. 変更を `main` にマージします。
 3. ワークフローを実行します。
 
